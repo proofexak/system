@@ -3,12 +3,8 @@
 		<%= link_to 'Log in', new_user_session_path, class: "btn btn-primary" %>
 		<%= link_to 'Registration', new_user_registration_path, class: "btn btn-primary" %>
 	<% end %>
-	<% if user_signed_in? %>
-		<% if @customer %>
-			<%= link_to 'Edit profile', customer_infos_path, class: "btn btn-primary" %>
-		<% else %>
-			<%= link_to 'Finish profile', customer_infos_path, class: "btn btn-primary" %>
-		<% end %>
+	<% if user_signed_in? && @user.try(:admin?)%>
+		<%= link_to 'Users', home_user_list_path, class: "btn btn-primary" %>
 		<%= link_to 'Edit account', edit_user_registration_path, class: "btn btn-primary" %>
 		<%= link_to 'Log out', destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
 	<% end %>

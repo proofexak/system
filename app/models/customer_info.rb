@@ -4,6 +4,7 @@ class CustomerInfo < ActiveRecord::Base
 	validates :first_name, :last_name, :telephone_number, 
         :city, :pesel, presence: true
   validates :telephone_number, length: {in: 9..12}
+  validates :pesel, length: {is: 11}
   validates :telephone_number, :pesel, numericality: { only_integer: true }
 
 	def customer_fields
