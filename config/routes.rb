@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
+  resources :employees do
+    resources :working_hours
+  end
   devise_for :admins
   resources :customer_infos
   devise_for :users 
   root 'home#index'
   get 'home/system'
-  get '/home/:id/make_admin', to: 'home#make_admin', as: :make_admin
-  get '/home/:id/revoke_admin', to: 'home#revoke_admin', as: :revoke_admin
+  get '/home/:id/change_user_type', to: 'home#change_user_type', as: :change_type
   get 'home/user_list'
   delete '/home/:id/delete_user', to: 'home#delete_user', as: :delete_user
 

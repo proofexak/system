@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170710093319) do
+ActiveRecord::Schema.define(version: 20170711114351) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -44,23 +44,48 @@ ActiveRecord::Schema.define(version: 20170710093319) do
 
   add_index "customer_infos", ["user_id"], name: "index_customer_infos_on_user_id"
 
+  create_table "employees", force: :cascade do |t|
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "position"
+    t.string   "telephone_number"
+    t.integer  "user_id"
+  end
+
+  add_index "employees", ["user_id"], name: "index_employees_on_user_id"
+
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "email",                  default: "",         null: false
+    t.string   "encrypted_password",     default: "",         null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",          default: 0,          null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.boolean  "admin",                  default: false
+    t.string   "type",                   default: "Customer"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "working_hours", force: :cascade do |t|
+    t.integer  "lp"
+    t.string   "day"
+    t.string   "start_hour"
+    t.string   "end_hour"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "employee_id"
+  end
+
+  add_index "working_hours", ["employee_id"], name: "index_working_hours_on_employee_id"
 
 end

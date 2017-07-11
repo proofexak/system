@@ -29,7 +29,7 @@ class CustomerInfosController < ApplicationController
     @user = current_user
     @customer = @user.build_customer_info(customer_info_params)
     if @customer.save
-      redirect_to home_system_path, notice: 'Created'
+      redirect_to root_path, notice: 'Created'
     else
       render :new
     end
@@ -40,7 +40,7 @@ class CustomerInfosController < ApplicationController
     @customer = @user.customer_info
 
     if @customer.update(customer_info_params)
-      redirect_to home_system_path, notice: 'Updated'
+      redirect_to root_path, notice: 'Updated'
     else
       render :edit
     end

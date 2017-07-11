@@ -3,6 +3,7 @@ class HomeController < ApplicationController
   	@user = current_user
     if @user
       @customer = @user.customer_info
+      @employee = @user.employee
     end
 
     if @user.try(:admin?)
@@ -16,20 +17,15 @@ class HomeController < ApplicationController
 
   end
 
-  def make_admin
+  def change_user_type
     @user = User.find(params[:id])
     if current_user.try(:admin?)
-      @user.update_attribute :admin, true
-    end
-    if @user.save
-      redirect_to home_user_list_path
-    end
-  end
-
-  def revoke_admin
-    @user = User.find(params[:id])
-    if current_user.try(:admin?)
-      @user.update_attribute :admin, false
+      if params[:form] == "Admin"
+        @user.update_attribute :admin, true
+      else
+        @user.update_attribute :admin, false
+      end
+      @user.update_attribute :type, params[:form]
     end
     if @user.save
       redirect_to home_user_list_path
