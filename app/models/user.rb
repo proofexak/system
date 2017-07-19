@@ -7,4 +7,8 @@ class User < ActiveRecord::Base
 
   has_one :customer_info
   has_one :employee
+
+  def admin?
+  	type == "admin"
+  end
 end

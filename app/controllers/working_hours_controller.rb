@@ -1,6 +1,5 @@
 class WorkingHoursController < ApplicationController
   before_action :authenticate_user!
-  include WorkingHoursHelper
 
   def index
     @user = current_user
@@ -52,5 +51,20 @@ class WorkingHoursController < ApplicationController
 
     def working_hour_params
       params.require(:working_hour).permit(:day, :start_hour, :end_hour)
+    end
+
+
+    def correct_lp(hour)
+      if hour.day == "monday"
+        hour.lp = 1
+      elsif hour.day == "tuesday"
+        hour.lp = 2
+      elsif hour.day == "wednesday"
+        hour.lp = 3
+      elsif hour.day == "thursday"
+        hour.lp = 4
+      elsif hour.day == "friday"
+        hour.lp = 5
+      end
     end
 end

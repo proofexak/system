@@ -21,3 +21,10 @@
 
 en:
   hello: "Hello world"
+  admin:
+    users:
+      make_admin: "Make admin"
+      make_employee: "Make employee"
+      make_secretary: "Make secretary"
+      make_customer: "Make customer"
+

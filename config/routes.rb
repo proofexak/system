@@ -2,10 +2,20 @@ Rails.application.routes.draw do
   resources :employees do
     resources :working_hours
   end
-  devise_for :admins
   resources :customer_infos
   devise_for :users 
   root 'home#index'
+
+  namespace :admin do
+    resources :users do
+      get 'user_list'
+      get 'change_user_type',  as: :change_type
+      get 'become'
+    end
+  end
+
+
+
   get 'home/system'
   get '/home/:id/change_user_type', to: 'home#change_user_type', as: :change_type
   get 'home/user_list'

@@ -4,10 +4,10 @@ class CustomerInfosController < ApplicationController
   def index
     @user = current_user
     @customer = @user.customer_info
-    if @customer == nil
-      redirect_to new_customer_info_path
-    else
+    if @customer
       redirect_to edit_customer_info_path(@customer)
+    else
+      redirect_to new_customer_info_path
     end
   end
 
