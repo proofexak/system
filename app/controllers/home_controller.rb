@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   def index
   	@user = current_user
     if @user
-      @customer = @user.customer_info
+      @customer = @user.customer
       @employee = @user.employee
     end
 

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :employees do
     resources :working_hours
   end
-  resources :customer_infos
+  resources :customers
   devise_for :users 
   root 'home#index'
 
@@ -13,13 +13,6 @@ Rails.application.routes.draw do
       get 'become'
     end
   end
-
-
-
-  get 'home/system'
-  get '/home/:id/change_user_type', to: 'home#change_user_type', as: :change_type
-  get 'home/user_list'
-  delete '/home/:id/delete_user', to: 'home#delete_user', as: :delete_user
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

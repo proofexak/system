@@ -17,8 +17,8 @@
       <tbody>
         <% @users.order(:type ,:email).each do |user| %>
           <tr>
-            <td><%= first_name?(user.customer_info) %></td>
-            <td><%= last_name?(user.customer_info) %></td>
+            <td><%= first_name?(user.customer) %></td>
+            <td><%= last_name?(user.customer) %></td>
             <td><%= user.email %></td>
             <td><%= user.type.capitalize %></td>
             <td><%= link_to t('admin.users.make_admin'), admin_user_change_type_path(user, form: :admin), class: "btn btn-primary" %></td>

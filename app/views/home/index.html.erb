@@ -4,10 +4,10 @@
 		<%= link_to 'Registration', new_user_registration_path, class: "btn btn-primary" %>
 	<% end %>
 	<% if user_signed_in? %>
-		<% if @user.try(:customer_info) && @user.try(:type) == "customer" %>
-			<%= link_to 'Edit profile', customer_infos_path, class: "btn btn-primary" %>
+		<% if @user.try(:customer) && @user.try(:type) == "customer" %>
+			<%= link_to 'Edit profile', customers_path, class: "btn btn-primary" %>
 		<% elsif @user.try(:type) == "customer" %>
-			<%= link_to 'Finish profile', customer_infos_path, class: "btn btn-primary" %>
+			<%= link_to 'Finish profile', customers_path, class: "btn btn-primary" %>
 		<% end %>
 		<% if @user.try(:employee) && @user.try(:type) == "employee" %>
 			<%= link_to 'Edit profile', employees_path, class: "btn btn-primary" %>
