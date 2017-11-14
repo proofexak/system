@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   resources :employees do
     resources :working_hours
   end
-  resources :customers
+  resources :customers do
+    get 'search'
+    get 'show_employee'
+  end
   devise_for :users 
   root 'home#index'
 

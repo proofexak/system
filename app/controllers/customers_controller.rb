@@ -49,6 +49,18 @@ class CustomersController < ApplicationController
   def destroy
   end
 
+  def search
+    @employee = Employee.all
+    @user = current_user
+    @customer = @user.customer
+  end
+
+  def show_employee
+    @employees = Employee.all
+    @employee = @employees.find(params[:form])
+    @working_hours = @employee.working_hours
+  end
+
   private
     def set_customer
     end
