@@ -67,4 +67,9 @@ class WorkingHoursController < ApplicationController
         hour.lp = 5
       end
     end
+
+    def correct?
+      (start_hour.to_i - end_hour.to_i) > 0
+    end
+
 end

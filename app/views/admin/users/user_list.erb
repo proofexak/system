@@ -17,8 +17,26 @@
       <tbody>
         <% @users.order(:type ,:email).each do |user| %>
           <tr>
-            <td><%= first_name?(user.customer) %></td>
-            <td><%= last_name?(user.customer) %></td>
+            <%if user.try(:type) == "customer"%>
+              <td><%=  first_name?(user.customer) %></td>
+            <%elsif user.try(:type) == "employee"%>
+              <td><%=  first_name?(user.employee) %></td>
+            <%elsif user.try(:type) == "secretary"%>
+              <td><%=  first_name?(user.customer) %></td>
+            <%else%>
+              <td><%=  "" %></td>
+            <%end%>
+
+            <%if user.try(:type) == "customer"%>
+              <td><%=  last_name?(user.customer) %></td>
+            <%elsif user.try(:type) == "employee"%>
+              <td><%=  last_name?(user.employee) %></td>
+            <%elsif user.try(:type) == "secretary"%>
+              <td><%=  flast_name?(user.customer) %></td>
+            <%else%>
+              <td><%=  "" %></td>
+            <%end%>
+
             <td><%= user.email %></td>
             <td><%= user.type.capitalize %></td>
             <td><%= link_to t('admin.users.make_admin'), admin_user_change_type_path(user, form: :admin), class: "btn btn-primary" %></td>
