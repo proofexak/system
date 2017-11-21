@@ -7,6 +7,7 @@
 		<% if @user.try(:customer) && @user.try(:type) == "customer" %>
 			<%= link_to 'Edit profile', customers_path, class: "btn btn-primary" %>
 			<%= link_to 'Search employee', customer_search_path(@customer), class: "btn btn-primary"%>
+			<%= link_to 'View yours appointments', appointments_path, class: "btn btn-primary"%>
 		<% elsif @user.try(:type) == "customer" %>
 			<%= link_to 'Finish profile', customers_path, class: "btn btn-primary" %>
 		<% end %>
