@@ -20,6 +20,7 @@
               <td><%= hour.day.capitalize %></td>
               <td><%= hour.start_hour %></td>
               <td><%= hour.end_hour %></td>
+              <td><%= link_to 'Edit', edit_employee_working_hour_path(@employee, hour), class: "btn btn-primary" %></td>
               <td><%= link_to "Destroy", employee_working_hour_path(@employee ,hour), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-primary" %></td>
             </tr>
           <% end %>

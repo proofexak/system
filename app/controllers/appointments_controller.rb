@@ -4,6 +4,7 @@ class AppointmentsController < ApplicationController
   
   def index
    @user = current_user
+   @customer = @user.customer
    @appointments = @user.appointments
   end
 
@@ -13,7 +14,7 @@ class AppointmentsController < ApplicationController
 
   
   def new
-    @employee_id = params[:form]
+    @employee = Employee.find(params[:employee_id])
     @user = current_user
     @customer = @user.customer
     @appointment = @user.appointments.build
@@ -21,12 +22,17 @@ class AppointmentsController < ApplicationController
 
 
   def edit
+    @appointment = current_user.appointments.find(params[:id])
+    @employee = Employee.find(params[:employee_id])
   end
 
   
   def create
     @user = current_user
+    @employee = Employee.find(params[:employee_id])
     @appointment = @user.appointments.build(appointment_params)
+    @appointment.customer_id = @user.customer.id
+    @appointment.employee_id = @employee.id
     if @appointment.save
       redirect_to root_path, notice: 'Appointment made, wait for acceptance'
     else
@@ -40,7 +46,10 @@ class AppointmentsController < ApplicationController
 
 
   def destroy
-    
+    @user = current_user
+    @appointment = @user.appointments.find(params[:id])
+    @appointment.destroy
+    redirect_to appointments_path
   end
 
   private

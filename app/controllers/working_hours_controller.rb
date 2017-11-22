@@ -18,6 +18,9 @@ class WorkingHoursController < ApplicationController
   end
 
   def edit
+    @user = current_user
+    @employee = @user.employee
+    @hour = @employee.working_hours.find(params[:id])
   end
 
 
@@ -34,6 +37,11 @@ class WorkingHoursController < ApplicationController
   end
 
   def update
+    @employee = current_user.employee
+    @hour = @employee.working_hours.find(params[:id])
+    if @hour.update(working_hour_params)
+      redirect_to employee_working_hours
+    end
   end
 
 

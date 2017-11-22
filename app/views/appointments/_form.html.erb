@@ -1,4 +1,4 @@
-<%= form_for @appointment do |f| %>
+<%= form_for @appointment, url: employee_appointments_path(@employee), method: :post do |f| %>
 <div class="panel-body">
   <div class="form-group">
     <%= f.label :purpose, "Purpose of the appointment" %><br>
