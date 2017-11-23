@@ -1,4 +1,4 @@
-<%= form_for @hour, :url =>  employee_working_hours_path(@employee), :method => :post do |f| %>
+<%= form_for @hour, :url =>  newOrEdit?(@path ,@employee, @hour), :method => postOrPut?(@value) do |f| %>
 <div class="panel-body">
   <div class="form-group">
     <%= f.label :day %><br>
@@ -19,7 +19,7 @@
 
 <% if @hour.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@hour.errors.count, "error") %> prohibited this bot from being saved:</h2>
+      <h2><%= pluralize(@hour.errors.count, "error") %> prohibited this working hours from being saved:</h2>
 
       <ul>
       <% @hour.errors.full_messages.each do |message| %>

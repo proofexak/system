@@ -14,6 +14,7 @@
 		<% if @user.try(:employee) && @user.try(:type) == "employee" %>
 			<%= link_to 'Edit profile', employees_path, class: "btn btn-primary" %>
 			<%= link_to 'Working hours', employee_working_hours_path(@employee), class: "btn btn-primary" %>
+			<%= link_to 'Your appointments',employee_appointment_path(@employee), class: "btn btn-primary" %>
 		<% elsif @user.try(:type) == "employee" %>
 			<%= link_to 'Finish profile', employees_path, class: "btn btn-primary" %>
 		<% end %>

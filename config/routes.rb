@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :appointments
   resources :employees do
+    get 'appointments', as: :appointment
     resources :appointments
     resources :working_hours
   end

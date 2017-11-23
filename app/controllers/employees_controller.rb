@@ -51,6 +51,12 @@ class EmployeesController < ApplicationController
     
   end
 
+  def appointments
+    @employee = current_user.employee
+    @appointments = Appointment.all
+  end
+
+
   private
     def set_employee
     end

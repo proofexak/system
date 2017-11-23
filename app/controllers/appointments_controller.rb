@@ -18,17 +18,22 @@ class AppointmentsController < ApplicationController
     @user = current_user
     @customer = @user.customer
     @appointment = @user.appointments.build
+    @path = "new"
+    @value = "post"
   end
 
 
   def edit
     @appointment = current_user.appointments.find(params[:id])
     @employee = Employee.find(params[:employee_id])
+    @path = "edit"
+    @value = "put"
   end
 
   
   def create
     @user = current_user
+    @customer = @user.customer
     @employee = Employee.find(params[:employee_id])
     @appointment = @user.appointments.build(appointment_params)
     @appointment.customer_id = @user.customer.id
@@ -41,7 +46,13 @@ class AppointmentsController < ApplicationController
   end
 
   def update
-  
+    @employee = Employee.find(params[:employee_id])
+    @appointment = current_user.appointments.find(params[:id])
+    if @appointment.update(appointment_params)
+      redirect_to appointments_path, notice: 'Appointment updated'
+    else
+      render :edit
+    end
   end
 
 
@@ -60,6 +71,6 @@ class AppointmentsController < ApplicationController
 
    
     def appointment_params
-      params.require(:appointment).permit(:purpose, :extra, :appointmentDate)
+      params.require(:appointment).permit(:purpose, :extra, :appointmentDate, :appointmentTime)
     end
 end
