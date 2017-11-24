@@ -1,6 +1,6 @@
 <main>
   <div class="panel panel-default">
-  <div class="panel-heading">Working hours</div>
+  <div class="panel-heading"><%= @value %> appointments</div>
     <div class="panel-body">
 
     <table class="table table-hover table-condensed">
@@ -9,18 +9,22 @@
           <th>Purpose</th>
           <th>Date</th>
           <th>Time</th>
+          <th>Employee</th>
           <th>Customer</th>
+          <th colspan="1"></th>
         </tr>
       </thead>
 
       <tbody>
           <% @appointments.order(:appointmentDate).each do |appointment| %>
-            <% if appointment.employee_id == @employee.id && appointment.confirmation == true%>
+            <% if appointment.confirmation == waitOrConfirmed?(@value) %>
               <tr>
                 <td><%= appointment.purpose %></td>
                 <td><%= appointment.appointmentDate %></td>
                 <td><%= appointment.appointmentTime %></td>
+                <td><%= Employee.find(appointment.employee_id).first_name %>  <%= Employee.find(appointment.employee_id).last_name %></td>
                 <td><%= Customer.find(appointment.customer_id).first_name %>  <%= Customer.find(appointment.customer_id).last_name %></td>
+                <td><%= link_to 'Show', appointment_path(appointment), class: "btn btn-primary" %></td>
               </tr>
             <% end %>
           <% end %>

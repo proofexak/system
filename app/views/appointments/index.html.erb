@@ -11,6 +11,7 @@
           <th>Date</th>
           <th>Time</th>
           <th>Employee</th>
+          <th>Confirmed</th>
           <th colspan="2"></th>
         </tr>
       </thead>
@@ -23,7 +24,13 @@
               <td><%= appointment.appointmentDate %></td>
               <td><%= appointment.appointmentTime %></td>
               <td><%= Employee.find(appointment.employee_id).first_name %>  <%= Employee.find(appointment.employee_id).last_name %></td>
-
+              <td>
+                <%if appointment.confirmation == false%>
+                  No
+                <%elsif appointment.confirmation == true%>
+                  Yes
+                <%end%>
+              </td>
               <td><%= link_to 'Edit',edit_employee_appointment_path(appointment.employee_id, appointment), class: "btn btn-primary" %></td>
               <td><%= link_to "Destroy", appointment_path(appointment), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-primary" %></td>
             </tr>

@@ -10,6 +10,8 @@ class AppointmentsController < ApplicationController
 
 
   def show
+    @appointment = Appointment.all.find(params[:id])
+    @secretary = current_user.secretary
   end
 
   
@@ -57,10 +59,21 @@ class AppointmentsController < ApplicationController
 
 
   def destroy
-    @user = current_user
-    @appointment = @user.appointments.find(params[:id])
+    @appointment = Appointment.find(params[:id])
+    @secretary = current_user.secretary
     @appointment.destroy
-    redirect_to appointments_path
+    redirect_to secretary_appointments_path(@secretary)
+  end
+
+  def accept
+    @secretary = current_user.secretary
+    @appointment = Appointment.all.find(params[:appointment_id])
+    @appointment.confirmation = true
+    if @appointment.save
+      redirect_to secretary_appointments_path(@secretary)
+    else
+      render :appointments
+    end
   end
 
   private

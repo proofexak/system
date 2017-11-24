@@ -32,7 +32,7 @@
             <%elsif user.try(:type) == "employee"%>
               <td><%=  last_name?(user.employee) %></td>
             <%elsif user.try(:type) == "secretary"%>
-              <td><%=  flast_name?(user.customer) %></td>
+              <td><%=  last_name?(user.customer) %></td>
             <%else%>
               <td><%=  "" %></td>
             <%end%>

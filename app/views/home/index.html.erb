@@ -18,6 +18,13 @@
 		<% elsif @user.try(:type) == "employee" %>
 			<%= link_to 'Finish profile', employees_path, class: "btn btn-primary" %>
 		<% end %>
+		<% if @user.try(:secretary) && @user.try(:type) == "secretary" %>
+			<%= link_to 'Edit profile', secretaries_path, class: "btn btn-primary" %>
+			<%= link_to 'Waiting appointments', secretary_appointments_path(@secretary, form: "Waiting"), class: "btn btn-primary" %>
+			<%= link_to 'Confirmed appointments', secretary_appointments_path(@secretary, form: "Confirmed"), class: "btn btn-primary" %>
+		<% elsif @user.try(:type) == "secretary" %>
+			<%= link_to 'Finish profile', secretaries_path, class: "btn btn-primary" %>
+		<% end %>
 		<%= link_to 'Edit account', edit_user_registration_path, class: "btn btn-primary" %>
 		<%= link_to 'Log out', destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
 	<% end %>

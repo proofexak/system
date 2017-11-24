@@ -17,5 +17,13 @@ module AppointmentsHelper
 		end
 	end
 
+	def waitOrConfirmed?(value)
+		if value == "Waiting"
+			false
+		elsif value == "Confirmed"
+			true
+		end
+	end
+
 
 end

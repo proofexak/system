@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   has_one :customer
   has_one :employee
+  has_one :secretary
   has_many :appointments
 
   def admin?

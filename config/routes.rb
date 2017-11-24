@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :appointments
+  resources :secretaries do
+    get 'appointments'
+  end
+  resources :appointments do
+    get 'accept'
+  end
   resources :employees do
     get 'appointments', as: :appointment
     resources :appointments

@@ -4,6 +4,7 @@ class HomeController < ApplicationController
     if @user
       @customer = @user.customer
       @employee = @user.employee
+      @secretary = @user.secretary
     end
 
     if @user.try(:type) == "admin"

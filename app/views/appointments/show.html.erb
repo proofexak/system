@@ -1,4 +1,15 @@
-<p id="notice"><%= notice %></p>
-
-<%= link_to 'Edit', edit_appointment_path(@appointment) %> |
-<%= link_to 'Back', appointments_path %>
+<div class="panel panel-default">
+  <div class="panel-heading">Appointment</div>
+  <div class="panel-body">
+  <b>From:</b> <%= Customer.find(@appointment.customer_id).first_name %> <%= Customer.find(@appointment.customer_id).last_name %> </br>
+  <b>To:</b> <%= Employee.find(@appointment.employee_id).first_name %> <%= Employee.find(@appointment.employee_id).last_name %> </br>
+  <b>Purpose:</b> <%= @appointment.purpose %> </br>
+  <b>Extra information:</b> <%= @appointment.extra %> </br>
+  <b>Date:</b> <%= @appointment.appointmentDate %> </br>
+  <b>Time:</b> <%= @appointment.appointmentTime %> </br>
+  <%= link_to 'Accept', appointment_accept_path(@appointment),data: { confirm: "Are you sure?" } , class: "btn btn-primary" %>
+  <%= link_to 'Decline', appointment_path(@appointment), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-primary" %>
+  </br>
+  <%= link_to 'Back', secretary_appointments_path(@secretary) %>
+  </div>
+</div>
