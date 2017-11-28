@@ -1,6 +1,6 @@
 <main>
   <div class="panel panel-default">
-  <div class="panel-heading">Working hours</div>
+  <div class="panel-heading">Your appointments</div>
     <div class="panel-body">
 
     <table class="table table-hover table-condensed">
@@ -17,13 +17,13 @@
       </thead>
 
       <tbody>
-          <% @appointments.order(:appointmentDate).each do |appointment| %>
+          <% @appointments.order(:appointment_date).each do |appointment| %>
             <tr>
               <td><%= appointment.purpose %></td>
               <td><%= appointment.extra %></td>
-              <td><%= appointment.appointmentDate %></td>
-              <td><%= appointment.appointmentTime %></td>
-              <td><%= Employee.find(appointment.employee_id).first_name %>  <%= Employee.find(appointment.employee_id).last_name %></td>
+              <td><%= appointment.appointment_date %></td>
+              <td><%= appointment.appointment_time %></td>
+              <td><%= @employee.first_name %>  <%= Employee.find(appointment.employee_id).last_name %></td>
               <td>
                 <%if appointment.confirmation == false%>
                   No

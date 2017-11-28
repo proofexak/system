@@ -2,7 +2,7 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">Edit appointment</div>
 
-	<%= render 'form' %>
+	<%= render 'form', path: "edit", method: "put" %>
 
 	<div class="panel-footer"><%= link_to 'Back', appointments_path %></div>
 	</div>

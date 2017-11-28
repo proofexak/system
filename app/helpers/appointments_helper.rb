@@ -1,7 +1,7 @@
 module AppointmentsHelper
 	
 
-	def newOrEditt?(path, employee_id, appointment_id)
+	def new_or_edit_a?(path, employee_id, appointment_id)
 		if path == "new"
 			employee_appointments_path(employee_id)
 		elsif path == "edit"
@@ -9,7 +9,7 @@ module AppointmentsHelper
 		end
 	end
 
-	def postOrPut?(value)
+	def post_or_put?(value)
 		if value == "post"
 			:post
 		elsif value == "put"
@@ -17,7 +17,7 @@ module AppointmentsHelper
 		end
 	end
 
-	def waitOrConfirmed?(value)
+	def wait_or_confirmed?(value)
 		if value == "Waiting"
 			false
 		elsif value == "Confirmed"

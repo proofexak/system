@@ -16,7 +16,6 @@ class WorkingHoursController < ApplicationController
     @employee = @user.employee
     @hour = @employee.working_hours.new
     @path = "new"
-    @value = "post"
   end
 
   def edit
@@ -24,7 +23,6 @@ class WorkingHoursController < ApplicationController
     @employee = @user.employee
     @hour = @employee.working_hours.find(params[:id])
     @path = "edit"
-    @value = "put"
   end
 
 

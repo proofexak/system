@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 	self.inheritance_column = nil
+
+  enum type: {employee: 'employee', secretary: 'secretary', customer: 'customer', admin: 'admin'}
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

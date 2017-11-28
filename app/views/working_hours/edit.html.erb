@@ -2,7 +2,7 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">Edit working hours</div>
 
-	<%= render 'form' %>
+	<%= render 'form', method: "put", path: "edit" %>
 
 	<div class="panel-footer"><%= link_to 'Back', employee_working_hours_path(@employee) %></div>
 	</div>

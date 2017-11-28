@@ -6,6 +6,7 @@ class AppointmentsController < ApplicationController
    @user = current_user
    @customer = @user.customer
    @appointments = @user.appointments
+   @employee = Appointment.includes(:employee)
   end
 
 
@@ -21,7 +22,6 @@ class AppointmentsController < ApplicationController
     @customer = @user.customer
     @appointment = @user.appointments.build
     @path = "new"
-    @value = "post"
   end
 
 
@@ -29,7 +29,6 @@ class AppointmentsController < ApplicationController
     @appointment = current_user.appointments.find(params[:id])
     @employee = Employee.find(params[:employee_id])
     @path = "edit"
-    @value = "put"
   end
 
   
@@ -84,6 +83,6 @@ class AppointmentsController < ApplicationController
 
    
     def appointment_params
-      params.require(:appointment).permit(:purpose, :extra, :appointmentDate, :appointmentTime)
+      params.require(:appointment).permit(:purpose, :extra, :appointment_date, :appointment_time)
     end
 end

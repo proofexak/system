@@ -4,7 +4,7 @@ class SecretariesController < ApplicationController
   def index
     @user = current_user
     @secretary = @user.secretary
-    if @secretary == nil
+    if !@secretary
       redirect_to new_secretary_path
     else
       redirect_to edit_secretary_path(@secretary)

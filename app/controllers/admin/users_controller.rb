@@ -27,7 +27,7 @@ module Admin
   	end
 
   	def become
-	    return unless current_user.try(:type) == "admin"
+	    return unless current_user.admin?
 	    sign_in(:user, User.find(params[:user_id]))
 	    redirect_to root_path, notice: "Zalogowales sie"
   	end

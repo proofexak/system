@@ -1,4 +1,4 @@
-<%= form_for @appointment, url: newOrEditt?(@path, @employee, @appointment), method: postOrPut?(@value) do |f| %>
+<%= form_for @appointment, url: new_or_edit_a?(@path, @employee, @appointment), method: post_or_put?(params[:method]) do |f| %>
 <div class="panel-body">
   <div class="form-group">
     <%= f.label :purpose, "Purpose of the appointment" %><br>
@@ -9,12 +9,12 @@
     <%= f.text_field :extra %>
   </div>
   <div class="form-group">
-    <%= f.label :appointmentDate, "Appointment date" %><br>
-    <%= f.date_field :appointmentDate %>
+    <%= f.label :appointment_date, "Appointment date" %><br>
+    <%= f.date_field :appointment_date %>
   </div>
   <div class="form-group">
-    <%= f.label :appointmentTime, "Appointment time" %><br>
-    <%= f.time_field :appointmentTime %>
+    <%= f.label :appointment_time, "Appointment time" %><br>
+    <%= f.time_field :appointment_time %>
   </div>
   
   <div class="actions">

@@ -4,7 +4,7 @@ class EmployeesController < ApplicationController
   def index
     @user = current_user
     @employee = @user.employee
-    if @employee == nil
+    if !@employee
       redirect_to new_employee_path
     else
       redirect_to edit_employee_path(@employee)

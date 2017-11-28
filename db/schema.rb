@@ -11,17 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171124131930) do
+ActiveRecord::Schema.define(version: 20171128162235) do
 
   create_table "appointments", force: :cascade do |t|
     t.string  "purpose"
     t.string  "extra"
-    t.integer "employee_id",     default: 0
-    t.integer "customer_id",     default: 0
-    t.boolean "confirmation",    default: false
+    t.integer "employee_id",      default: 0
+    t.integer "customer_id",      default: 0
+    t.boolean "confirmation",     default: false
     t.integer "user_id"
-    t.date    "appointmentDate"
-    t.string  "appointmentTime"
+    t.date    "appointment_date"
+    t.string  "appointment_time"
   end
 
   add_index "appointments", ["user_id"], name: "index_appointments_on_user_id"
