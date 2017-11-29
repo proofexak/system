@@ -10,35 +10,18 @@
           <th>Last Name</th>
           <th>Email</th>
           <th>Type</th>
-          <th colspan="6"></th>
+          <th colspan="7"></th>
         </tr>
       </thead>
 
       <tbody>
         <% @users.order(:type ,:email).each do |user| %>
           <tr>
-            <%if user.try(:type) == "customer"%>
-              <td><%=  first_name?(user.customer) %></td>
-            <%elsif user.try(:type) == "employee"%>
-              <td><%=  first_name?(user.employee) %></td>
-            <%elsif user.try(:type) == "secretary"%>
-              <td><%=  first_name?(user.customer) %></td>
-            <%else%>
-              <td><%=  "" %></td>
-            <%end%>
-
-            <%if user.try(:type) == "customer"%>
-              <td><%=  last_name?(user.customer) %></td>
-            <%elsif user.try(:type) == "employee"%>
-              <td><%=  last_name?(user.employee) %></td>
-            <%elsif user.try(:type) == "secretary"%>
-              <td><%=  last_name?(user.customer) %></td>
-            <%else%>
-              <td><%=  "" %></td>
-            <%end%>
-
+            <td><%= whos_name_to_show?(user) %></td>
+            <td><%= whos_last_name_to_show?(user) %></td>
             <td><%= user.email %></td>
             <td><%= user.type.capitalize %></td>
+            <td><%= link_to "Show", who_to_show?(user), class: "btn btn-primary" %></td>
             <td><%= link_to t('admin.users.make_admin'), admin_user_change_type_path(user, form: :admin), class: "btn btn-primary" %></td>
             <td><%= link_to t('admin.users.make_employee'), admin_user_change_type_path(user, form: :employee), class: "btn btn-primary" %></td>
             <td><%= link_to t('admin.users.make_secretary'), admin_user_change_type_path(user, form: :secretary), class: "btn btn-primary" %></td>

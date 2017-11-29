@@ -7,8 +7,16 @@ class HomeController < ApplicationController
       @secretary = @user.secretary
     end
 
-    if @user.try(:type) == "admin"
-      redirect_to admin_users_path
+    unless @user.nil?
+      if @user.admin?
+        redirect_to admin_users_path
+      elsif @user.customer?
+        redirect_to customers_path
+      elsif @user.employee?
+        redirect_to employees_path
+      elsif @user.secretary?
+        redirect_to secretaries_path
+      end
     end
   end
 

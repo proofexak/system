@@ -1,14 +1,9 @@
 class CustomersController < ApplicationController
-
+  before_action :authenticate_customer
 
   def index
     @user = current_user
     @customer = @user.customer
-    if @customer
-      redirect_to edit_customer_path(@customer)
-    else
-      redirect_to new_customer_path
-    end
   end
 
   def show
@@ -63,6 +58,10 @@ class CustomersController < ApplicationController
 
   private
     def set_customer
+    end
+
+    def authenticate_customer
+      redirect_to root_path, notice: "You're not customer" unless current_user.customer? || current_user.admin?
     end
 
     def customer_params

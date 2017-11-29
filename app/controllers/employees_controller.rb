@@ -1,14 +1,10 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_employee
 
   def index
     @user = current_user
     @employee = @user.employee
-    if !@employee
-      redirect_to new_employee_path
-    else
-      redirect_to edit_employee_path(@employee)
-    end
   end
 
   def show
@@ -59,6 +55,10 @@ class EmployeesController < ApplicationController
 
   private
     def set_employee
+    end
+
+    def authenticate_employee
+      redirect_to root_path, notice: "You're not employee" unless current_user.employee? || current_user.admin?
     end
 
     def employee_params

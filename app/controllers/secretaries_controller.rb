@@ -1,14 +1,10 @@
 class SecretariesController < ApplicationController
   before_action :set_secretary, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_secretary
 
   def index
     @user = current_user
     @secretary = @user.secretary
-    if !@secretary
-      redirect_to new_secretary_path
-    else
-      redirect_to edit_secretary_path(@secretary)
-    end
   end
 
 
@@ -51,7 +47,7 @@ class SecretariesController < ApplicationController
 
   def appointments
     @appointments = Appointment.all
-    @value = params[:form]
+    @status = params[:form]
   end
 
   private
@@ -59,6 +55,9 @@ class SecretariesController < ApplicationController
 
     end
 
+    def authenticate_secretary
+      redirect_to root_path, notice: "You're not secretary" unless current_user.secretary? || current_user.admin?
+    end
   
     def secretary_params
       params.require(:secretary).permit(:first_name, :last_name, :telephone_number)
