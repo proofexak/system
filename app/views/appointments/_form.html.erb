@@ -14,7 +14,7 @@
   </div>
   <div class="form-group">
     <%= f.label :appointment_time, "Appointment time" %><br>
-    <%= f.time_field :appointment_time %>
+    <%= f.select :appointment_time, @test.map { |value| [value, value] }  %>
   </div>
   
   <div class="actions">

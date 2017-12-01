@@ -8,6 +8,13 @@ class EmployeesController < ApplicationController
   end
 
   def show
+    if current_user.admin?
+      @admin = current_user
+      @employee = Employee.find(params[:id])
+      @user = User.find(@employee.user_id)
+    else
+      redirect_to root_path, notice: "You're not admin"
+    end
   end
 
 
@@ -49,7 +56,7 @@ class EmployeesController < ApplicationController
 
   def appointments
     @employee = current_user.employee
-    @appointments = Appointment.all
+    @appointments = Appointment.all.includes(:customer)
   end
 
 

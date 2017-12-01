@@ -1,6 +1,6 @@
 <main>
   <div class="panel panel-default">
-  <div class="panel-heading">Working hours</div>
+  <div class="panel-heading">Appointments</div>
     <div class="panel-body">
 
     <table class="table table-hover table-condensed">
@@ -20,7 +20,7 @@
                 <td><%= appointment.purpose %></td>
                 <td><%= appointment.appointment_date %></td>
                 <td><%= appointment.appointment_time %></td>
-                <td><%= Customer.find(appointment.customer_id).first_name %>  <%= Customer.find(appointment.customer_id).last_name %></td>
+                <td><%= appointment.customer.first_name %>  <%= appointment.customer.last_name %></td>
               </tr>
             <% end %>
           <% end %>

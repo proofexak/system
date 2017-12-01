@@ -7,6 +7,13 @@ class CustomersController < ApplicationController
   end
 
   def show
+    if current_user.admin?
+      @admin = current_user
+      @customer = Customer.find(params[:id])
+      @user = User.find(@customer.user_id)
+    else
+      redirect_to root_path, notice: "You're not admin"
+    end
   end
 
   def new

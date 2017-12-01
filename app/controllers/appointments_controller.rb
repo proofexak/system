@@ -5,14 +5,15 @@ class AppointmentsController < ApplicationController
   def index
    @user = current_user
    @customer = @user.customer
-   @appointments = @user.appointments
-   @employee = Appointment.includes(:employee)
+   @appointments = @user.appointments.includes(:employee)
   end
 
 
   def show
     @appointment = Appointment.all.find(params[:id])
     @secretary = current_user.secretary
+    @customer = Customer.find(@appointment.customer_id)
+    @employee = Employee.find(@appointment.employee_id)
   end
 
   
@@ -22,6 +23,7 @@ class AppointmentsController < ApplicationController
     @customer = @user.customer
     @appointment = @user.appointments.build
     @path = "new"
+    @test = [10, 20, 22]
   end
 
 
@@ -61,7 +63,11 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.find(params[:id])
     @secretary = current_user.secretary
     @appointment.destroy
-    redirect_to secretary_appointments_path(@secretary)
+    if current_user.secretary?
+      redirect_to secretary_appointments_path(@secretary)
+    elsif current_user.customer
+      redirect_to appointments_path
+    end
   end
 
   def accept

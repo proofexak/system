@@ -1,5 +1,6 @@
 class Customer < ActiveRecord::Base
 	belongs_to :user
+	has_many :appointments
 
 	validates :first_name, :last_name, :telephone_number, 
         :city, :pesel, presence: true

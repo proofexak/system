@@ -1,15 +1,17 @@
 <div class="panel panel-default">
   <div class="panel-heading">Appointment</div>
   <div class="panel-body">
-  <b>From:</b> <%= Customer.find(@appointment.customer_id).first_name %> <%= Customer.find(@appointment.customer_id).last_name %> </br>
-  <b>To:</b> <%= Employee.find(@appointment.employee_id).first_name %> <%= Employee.find(@appointment.employee_id).last_name %> </br>
+  <b>From:</b> <%= first_name?(@customer) %> <%= last_name?(@customer) %> </br>
+  <b>To:</b> <%= first_name?(@employee) %> <%= last_name?(@employee) %> </br>
   <b>Purpose:</b> <%= @appointment.purpose %> </br>
   <b>Extra information:</b> <%= @appointment.extra %> </br>
   <b>Date:</b> <%= @appointment.appointment_date %> </br>
   <b>Time:</b> <%= @appointment.appointment_time %> </br>
-  <%= link_to 'Accept', appointment_accept_path(@appointment),data: { confirm: "Are you sure?" } , class: "btn btn-primary" %>
-  <%= link_to 'Decline', appointment_path(@appointment), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-primary" %>
+  <% if !@appointment.confirmation %>
+    <%= link_to 'Accept', appointment_accept_path(@appointment),data: { confirm: "Are you sure?" } , class: "btn btn-primary" %>
+    <%= link_to 'Decline', appointment_path(@appointment), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-primary" %>
+  <% end %>
   </br>
-  <%= link_to 'Back', secretary_appointments_path(@secretary) %>
+  <%= link_to 'Back', root_path %>
   </div>
 </div>

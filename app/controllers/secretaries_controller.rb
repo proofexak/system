@@ -9,6 +9,13 @@ class SecretariesController < ApplicationController
 
 
   def show
+    if current_user.admin?
+      @admin = current_user
+      @secretary = Secretary.find(params[:id])
+      @user = User.find(@secretary.user_id)
+    else
+      redirect_to root_path, notice: "You're not admin"
+    end
   end
 
  
@@ -46,7 +53,7 @@ class SecretariesController < ApplicationController
   end
 
   def appointments
-    @appointments = Appointment.all
+    @appointments = Appointment.all.includes(:employee, :customer)
     @status = params[:form]
   end
 

@@ -43,11 +43,17 @@ module HomeHelper
 
 	def who_to_show?(user)
 		if user.customer?
+			unless user.customer.nil?
 			customer_path(user.customer)
+			end
 		elsif user.employee?
+			unless user.employee.nil?
 			employee_path(user.employee)
+			end
 		elsif user.secretary?
-			admin_user_user_list_path(user)
+			unless user.secretary.nil?
+			secretary_path(user.secretary)
+			end
 		elsif user.admin?
 			admin_user_user_list_path(user)
 		end	

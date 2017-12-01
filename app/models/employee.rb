@@ -1,6 +1,7 @@
 class Employee < ActiveRecord::Base
 	belongs_to :user
 	has_many :working_hours
+	has_many :appointments
 
 	validates :first_name, :last_name, :telephone_number, 
         :position, presence: true
