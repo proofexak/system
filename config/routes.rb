@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+
+
+  match 'appointments/new_date' => 'appointments#new_date', :via => :get
+
   resources :secretaries do
     get 'appointments'
   end

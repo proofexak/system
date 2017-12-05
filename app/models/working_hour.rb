@@ -3,16 +3,15 @@ class WorkingHour < ActiveRecord::Base
 
 	validates :day, :start_hour, :end_hour, presence: true
 	validates :day, uniqueness: {scope: :employee ,message: ": You already set working hours for %{value}"}
-	#validate :correct_working_hours, on: :create
+	validate :correct_working_hours
 
-	#def correct?
-	#	(start_hour.to_i - end_hour.to_i) > 0
-	#end
+	private
 
-	#def correct_working_hours
-	#	errors.add(:start_hour, "is greater than", :end_hour) unless WorkingHour.correct?
-		
-	#end
+	def correct_working_hours
+		if(start_hour[0..1].to_f >= end_hour[0..1].to_f && end_hour[3..4] != '30')
+			errors.add(:start_hour, "is greater than end hour")
+		end
+	end
 
 	
 

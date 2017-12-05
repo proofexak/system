@@ -16,6 +16,11 @@ class WorkingHoursController < ApplicationController
     @employee = @user.employee
     @hour = @employee.working_hours.new
     @path = "new"
+    @select_hours = Array.new
+    for i in 0..12
+      @select_hours.push("#{07+i}:00")
+      @select_hours.push("#{07+i}:30")
+    end
   end
 
   def edit
@@ -23,6 +28,11 @@ class WorkingHoursController < ApplicationController
     @employee = @user.employee
     @hour = @employee.working_hours.find(params[:id])
     @path = "edit"
+    @select_hours = Array.new
+    for i in 0..12
+      @select_hours.push("#{07+i}:00")
+      @select_hours.push("#{07+i}:30")
+    end
   end
 
 
@@ -30,6 +40,11 @@ class WorkingHoursController < ApplicationController
     @user = current_user
     @employee = @user.employee
     @hour = @employee.working_hours.new(working_hour_params)
+    @select_hours = Array.new
+    for i in 0..12
+      @select_hours.push("#{07+i}:00")
+      @select_hours.push("#{07+i}:30")
+    end
     correct_lp(@hour)
     if @hour.save
       redirect_to employee_working_hours_path(@employee), notice: 'Added'

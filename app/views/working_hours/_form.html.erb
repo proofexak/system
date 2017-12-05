@@ -1,4 +1,4 @@
-<%= form_for @hour, :url =>  new_or_edit_wh?(@employee, @hour, @path), :method => post_or_put?(params[:method]) do |f| %>
+<%= form_for @hour, :url =>  employee_working_hours_path(@employee), :method => post_or_put?(params[:method]) do |f| %>
 <div class="panel-body">
   <div class="form-group">
     <%= f.label :day %><br>
@@ -6,11 +6,11 @@
   </div>
   <div class="form-group">
     <%= f.label :start_hour %><br>
-    <%= f.time_field :start_hour %>
+    <%= f.select :start_hour, @select_hours.map {|value| [value, value]} %>
   </div>
   <div class="form-group">
     <%= f.label :end_hour %><br>
-    <%= f.time_field :end_hour %>
+    <%= f.select :end_hour, @select_hours.map {|value| [value, value]} %>
   </div>
   <div class="actions">
     <%= f.submit @hour.persisted? ? "Update" : "Create", class: "btn btn-primary" %>

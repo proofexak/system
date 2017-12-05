@@ -16,14 +16,30 @@ class AppointmentsController < ApplicationController
     @employee = Employee.find(@appointment.employee_id)
   end
 
-  
+  def new_date
+    @employee = Employee.find(params[:employee])
+    @user = current_user
+    @customer = @user.customer
+    @appointment = @user.appointments.build
+  end
+
+
   def new
     @employee = Employee.find(params[:employee_id])
     @user = current_user
     @customer = @user.customer
-    @appointment = @user.appointments.build
+    @appointment = @user.appointments.build(appointment_date_params)
     @path = "new"
-    @test = [10, 20, 22]
+    @working_hours = @employee.working_hours.where(lp: @appointment.appointment_date.wday).take
+    @test = Array.new
+    @hours = @working_hours.end_hour[0..1].to_f - @working_hours.start_hour[0..1].to_f
+    if(@hours == 1) 
+      @hours = @hours - 1 
+    end
+    for i in 0..@hours
+      @test.push("#{sprintf('%g', @working_hours.start_hour[0..1].to_f+i)}:00") unless (@working_hours.start_hour[3..4] == '30' && i == 0)
+      @test.push("#{sprintf('%g', @working_hours.start_hour[0..1].to_f+i)}:30") unless (@working_hours).end_hour[3..4] != '30' && i == @hours
+    end
   end
 
 
@@ -31,6 +47,16 @@ class AppointmentsController < ApplicationController
     @appointment = current_user.appointments.find(params[:id])
     @employee = Employee.find(params[:employee_id])
     @path = "edit"
+    @working_hours = @employee.working_hours.where(lp: @appointment.appointment_date.wday).take
+    @test = Array.new
+    @hours = @working_hours.end_hour[0..1].to_f - @working_hours.start_hour[0..1].to_f
+    if(@hours == 1) 
+      @hours = @hours - 1 
+    end
+    for i in 0..@hours
+      @test.push("#{sprintf('%g', @working_hours.start_hour[0..1].to_f+i)}:00") unless (@working_hours.start_hour[3..4] == '30' && i == 0)
+      @test.push("#{sprintf('%g', @working_hours.start_hour[0..1].to_f+i)}:30") unless (@working_hours).end_hour[3..4] != '30' && i == @hours
+    end
   end
 
   
@@ -90,5 +116,9 @@ class AppointmentsController < ApplicationController
    
     def appointment_params
       params.require(:appointment).permit(:purpose, :extra, :appointment_date, :appointment_time)
+    end
+
+    def appointment_date_params
+      params.require(:appointment).permit(:appointment_date)
     end
 end

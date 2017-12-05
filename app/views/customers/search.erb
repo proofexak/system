@@ -20,7 +20,7 @@
             <td><%= last_name?(employee)%></td>
             <td><%= employee.position %></td>
             <td><%= link_to "Show working hours", customer_show_employee_path(@customer,form: employee.id), class: "btn btn-primary" %></td>
-            <td><%= link_to "Make appointment", new_employee_appointment_path(employee), class: "btn btn-primary" %></td>
+            <td><%= link_to "Make appointment", appointments_new_date_path(employee: employee.id), class: "btn btn-primary" %></td>
           </tr>
         <% end %>
       </tbody>
