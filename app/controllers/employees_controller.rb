@@ -1,9 +1,9 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_employee
+  before_action :set_user, except: [:show]
 
   def index
-    @user = current_user
     @employee = @user.employee
   end
 
@@ -19,17 +19,14 @@ class EmployeesController < ApplicationController
 
 
   def new
-    @user = current_user
     @employee = @user.build_employee
   end
 
   def edit
-    @user = current_user
     @employee = @user.employee
   end
 
   def create
-    @user = current_user
     @employee = @user.build_employee(employee_params)
     if @employee.save
       redirect_to root_path, notice: 'Created'
@@ -40,7 +37,6 @@ class EmployeesController < ApplicationController
 
 
   def update
-    @user = current_user
     @employee = @user.employee
     if @employee.update(employee_params)
       redirect_to root_path, notice: 'Updated'
@@ -55,13 +51,17 @@ class EmployeesController < ApplicationController
   end
 
   def appointments
-    @employee = current_user.employee
+    @employee = @user.employee
     @appointments = Appointment.all.includes(:customer)
   end
 
 
   private
     def set_employee
+    end
+
+    def set_user
+      @user = current_user
     end
 
     def authenticate_employee

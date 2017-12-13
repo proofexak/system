@@ -3,8 +3,7 @@ class SecretariesController < ApplicationController
   before_action :authenticate_secretary
 
   def index
-    @user = current_user
-    @secretary = @user.secretary
+    @secretary = current_user.secretary
   end
 
 
@@ -53,8 +52,8 @@ class SecretariesController < ApplicationController
   end
 
   def appointments
-    @appointments = Appointment.all.includes(:employee, :customer)
-    @status = params[:form]
+    @appointments = Appointment.includes(:employee, :customer)
+    @status = params[:status]
   end
 
   private

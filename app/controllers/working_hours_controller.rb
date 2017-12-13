@@ -1,9 +1,11 @@
 class WorkingHoursController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_select_hours, only: %i[edit update new create]
+  before_action :set_employee,     only: %i[edit update index new create destroy]
+  before_action :set_hour, only: %i[edit update destroy]
+
 
   def index
-    @user = current_user
-    @employee = @user.employee
     @hours = @employee.working_hours
   end
 
@@ -12,39 +14,15 @@ class WorkingHoursController < ApplicationController
 
 
   def new
-    @user = current_user
-    @employee = @user.employee
     @hour = @employee.working_hours.new
-    @path = "new"
-    @select_hours = Array.new
-    for i in 0..12
-      @select_hours.push("#{07+i}:00")
-      @select_hours.push("#{07+i}:30")
-    end
   end
 
   def edit
-    @user = current_user
-    @employee = @user.employee
-    @hour = @employee.working_hours.find(params[:id])
-    @path = "edit"
-    @select_hours = Array.new
-    for i in 0..12
-      @select_hours.push("#{07+i}:00")
-      @select_hours.push("#{07+i}:30")
-    end
   end
 
 
   def create
-    @user = current_user
-    @employee = @user.employee
     @hour = @employee.working_hours.new(working_hour_params)
-    @select_hours = Array.new
-    for i in 0..12
-      @select_hours.push("#{07+i}:00")
-      @select_hours.push("#{07+i}:30")
-    end
     correct_lp(@hour)
     if @hour.save
       redirect_to employee_working_hours_path(@employee), notice: 'Added'
@@ -54,24 +32,35 @@ class WorkingHoursController < ApplicationController
   end
 
   def update
-    @employee = current_user.employee
-    @hour = @employee.working_hours.find(params[:id])
     if @hour.update(working_hour_params)
       redirect_to employee_working_hours_path(@employee)
+    else
+      render :edit
     end
   end
 
 
   def destroy
-    @user = current_user
-    @employee = @user.employee
-    @hour = @employee.working_hours.find(params[:id])
     @hour.destroy
     redirect_to employee_working_hours_path(@employee)
   end
 
   private
     def set_working_hour
+    end
+
+    def set_select_hours
+      @select_hours = (0..12).flat_map do |index|
+        ["#{07 + index}:00", "#{07 + index}:30"]
+      end
+    end
+
+    def set_employee
+      @employee = current_user.employee
+    end
+
+    def set_hour
+      @hour = @employee.working_hours.find(params[:id])
     end
 
     def working_hour_params

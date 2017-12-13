@@ -1,8 +1,8 @@
 class CustomersController < ApplicationController
   before_action :authenticate_customer
+  before_action :set_user, except: [:show]
 
   def index
-    @user = current_user
     @customer = @user.customer
   end
 
@@ -17,18 +17,14 @@ class CustomersController < ApplicationController
   end
 
   def new
-    @user = current_user
     @customer = @user.build_customer
-
   end
 
   def edit
-    @user = current_user
     @customer = @user.customer
   end
 
   def create
-    @user = current_user
     @customer = @user.build_customer(customer_params)
     if @customer.save
       redirect_to root_path, notice: 'Created'
@@ -38,9 +34,7 @@ class CustomersController < ApplicationController
   end
 
   def update
-    @user = current_user
     @customer = @user.customer
-
     if @customer.update(customer_params)
       redirect_to root_path, notice: 'Updated'
     else
@@ -53,18 +47,20 @@ class CustomersController < ApplicationController
 
   def search
     @employee = Employee.all
-    @user = current_user
     @customer = @user.customer
   end
 
   def show_employee
-    @employees = Employee.all
-    @employee = @employees.find(params[:form])
+    @employee = Employee.find(params[:form])
     @working_hours = @employee.working_hours
   end
 
   private
     def set_customer
+    end
+
+    def set_user
+      @user = current_user
     end
 
     def authenticate_customer

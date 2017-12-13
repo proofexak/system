@@ -1,4 +1,4 @@
-<%= form_for @appointment, url: new_or_edit_a?(@path, @employee, @appointment), method: post_or_put?(params[:method]) do |f| %>
+<%= form_for @appointment, url: (@appointment.new_record? ? employee_appointments_path(@employee) : appointment_path(@appointment, employee: @employee.id)), method: (@appointment.new_record? ? :post : :put) do |f| %>
 <div class="panel-body">
   <div class="form-group">
     <%= f.label :purpose, "Purpose of the appointment" %><br>
@@ -10,7 +10,11 @@
   </div>
   <div class="form-group">
     <%= f.label :appointment_time, "Appointment time" %><br>
-    <%= f.select :appointment_time, @test.map { |value| [value, value] }  %>
+    <%= f.select :appointment_time, @select_hours.map { |value| [value, value] }  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :appointment_date, "Appointment date" %><br>
+    <%= f.date_field :appointment_date, :readonly => true %>
   </div>
   
   <div class="actions">
@@ -20,7 +24,7 @@
 
 <% if @appointment.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@appointment.errors.count, "error") %> prohibited this bot from being saved:</h2>
+      <h2><%= pluralize(@appointment.errors.count, "error") %> prohibited this appointment from being saved:</h2>
 
       <ul>
       <% @appointment.errors.full_messages.each do |message| %>
