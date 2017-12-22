@@ -4,6 +4,7 @@ class CustomersController < ApplicationController
 
   def index
     @customer = @user.customer
+    @appointments = Appointment.where(customer_id: @customer.id)
   end
 
   def show
@@ -53,6 +54,10 @@ class CustomersController < ApplicationController
   def show_employee
     @employee = Employee.find(params[:form])
     @working_hours = @employee.working_hours
+  end
+
+  def calendar
+    @customer = @user.customer
   end
 
   private

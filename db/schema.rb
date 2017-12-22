@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171128162235) do
+ActiveRecord::Schema.define(version: 20171217152110) do
 
   create_table "appointments", force: :cascade do |t|
     t.string  "purpose"
@@ -50,6 +50,14 @@ ActiveRecord::Schema.define(version: 20171128162235) do
   end
 
   add_index "employees", ["user_id"], name: "index_employees_on_user_id"
+
+  create_table "events", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "secretaries", force: :cascade do |t|
     t.datetime "created_at",       null: false

@@ -13,7 +13,8 @@ gem 'devise', '~> 4.3'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 gem 'execjs'
 gem 'therubyracer', :platforms => :ruby
-
+gem 'fullcalendar-rails'
+gem 'momentjs-rails', :github => 'derekprior/momentjs-rails'
 
 group :development, :test do
   gem 'byebug'

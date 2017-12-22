@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :working_hours
   end
   resources :customers do
+    get 'calendar'
     get 'search'
     get 'show_employee'
   end

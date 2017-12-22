@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hello <%= @customer.first_name %>!</h1>
+    <p>
+      Your appointment with <%= @appointment.employee.first_name %> <%= @appointment.employee.last_name %>
+      which will take place on <%= @appoitnment.appointment_date %> at <%= @appoitnment.appointment_time %>
+      has been accepted.<br>
+    </p>
+    <p>
+      Thank you very much for using our services!
+    </p>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>

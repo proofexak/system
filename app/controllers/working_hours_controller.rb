@@ -4,7 +4,6 @@ class WorkingHoursController < ApplicationController
   before_action :set_employee,     only: %i[edit update index new create destroy]
   before_action :set_hour, only: %i[edit update destroy]
 
-
   def index
     @hours = @employee.working_hours
   end

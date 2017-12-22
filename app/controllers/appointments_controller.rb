@@ -13,6 +13,7 @@ class AppointmentsController < ApplicationController
     @secretary = current_user.secretary
     @customer = Customer.find(@appointment.customer_id)
     @employee = Employee.find(@appointment.employee_id)
+    @status = params[:status]
   end
 
   def new_date
@@ -73,7 +74,7 @@ class AppointmentsController < ApplicationController
     @secretary = @user.secretary
     @appointment.destroy
     if @user.secretary?
-      redirect_to secretary_appointments_path(@secretary)
+      redirect_to secretary_appointments_path(@secretary, status: params[:status])
     elsif @user.customer?
       redirect_to appointments_path
     end
@@ -82,8 +83,10 @@ class AppointmentsController < ApplicationController
   def accept
     @secretary = @user.secretary
     @appointment = Appointment.find(params[:appointment_id])
+    @customer = Customer.find(@appointment.customer_id)
     @appointment.confirmation = true
     if @appointment.save
+      UserMailer.accepted_appointment(@customer).deliver_later
       redirect_to secretary_appointments_path(@secretary)
     else
       render :appointments

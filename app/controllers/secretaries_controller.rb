@@ -3,7 +3,8 @@ class SecretariesController < ApplicationController
   before_action :authenticate_secretary
 
   def index
-    @secretary = current_user.secretary
+    @user = current_user
+    @secretary = @user.secretary
   end
 
 
