@@ -53,8 +53,19 @@ class SecretariesController < ApplicationController
   end
 
   def appointments
-    @appointments = Appointment.includes(:employee, :customer)
     @status = params[:status]
+    @secretary = current_user.secretary
+    @appointments = Appointment.includes(:employee, :customer).where(confirmation: view_context.wait_or_confirmed?(@status))
+  end
+
+  def calendar
+    @status = params[:status]
+    @secretary = current_user.secretary
+    @appointments = Appointment.where(confirmation: view_context.wait_or_confirmed?(@status))
+    @merged_date = {"id" => "date"}
+    @appointments.each do |appointment|
+      @merged_date[appointment.id] = "#{appointment.appointment_date}T#{appointment.appointment_time}:00"
+    end
   end
 
   private

@@ -5,6 +5,10 @@ class CustomersController < ApplicationController
   def index
     @customer = @user.customer
     @appointments = Appointment.where(customer_id: @customer.id)
+    @merged_date = {"id" => "date"}
+    @appointments.each do |appointment|
+      @merged_date[appointment.id] = "#{appointment.appointment_date}T#{appointment.appointment_time}:00"
+    end
   end
 
   def show
@@ -51,13 +55,23 @@ class CustomersController < ApplicationController
     @customer = @user.customer
   end
 
-  def show_employee
-    @employee = Employee.find(params[:form])
-    @working_hours = @employee.working_hours
-  end
-
   def calendar
     @customer = @user.customer
+    @appointments = Appointment.where(customer_id: @customer.id)
+    @merged_date = {"id" => "date"}
+    @appointments.each do |appointment|
+      @merged_date[appointment.id] = "#{appointment.appointment_date}T#{appointment.appointment_time}:00"
+    end
+  end
+
+  def employee
+    @employee = Employee.find(params[:employee_id])
+    @working_hours = @employee.working_hours
+    @appointments = Appointment.where(employee_id: @employee.id).where(confirmation: true)
+    @merged_date = {"id" => "date"}
+    @appointments.each do |appointment|
+      @merged_date[appointment.id] = "#{appointment.appointment_date}T#{appointment.appointment_time}:00"
+    end
   end
 
   private

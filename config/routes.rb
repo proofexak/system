@@ -2,9 +2,11 @@ Rails.application.routes.draw do
 
 
   match 'appointments/new_date' => 'appointments#new_date', :via => :get
+  get 'customers/employee/:employee_id' => 'customers#employee', as: :customer_employee
 
   resources :secretaries do
     get 'appointments'
+    get 'calendar'
   end
   resources :appointments do
     get 'accept'
@@ -13,12 +15,17 @@ Rails.application.routes.draw do
     get 'appointments', as: :appointment
     resources :appointments
     resources :working_hours
+    get 'calendar'
   end
   resources :customers do
     get 'calendar'
     get 'search'
-    get 'show_employee'
   end
+
+  namespace :customers do
+    resources :employee, only: :show
+  end
+
   devise_for :users 
   root 'home#index'
 

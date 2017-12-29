@@ -8,36 +8,13 @@ initialize_calendar = function() {
         center: 'title',
         right: 'month,agendaWeek,agendaDay'
       },
+      defaultTimedEventDuration: '00:30:00',
       selectable: true,
       selectHelper: true,
-      editable: true,
+      editable: false,
       eventLimit: true,
-      events: '/customers.json',
-
-      select: function(start, end) {
-        $.getScript('/events/new', function() {});
-
-        calendar.fullCalendar('unselect');
-      },
-
-      eventDrop: function(event, delta, revertFunc) {
-        event_data = { 
-          event: {
-            id: event.id,
-            start: event.start.format(),
-            end: event.end.format()
-          }
-        };
-        $.ajax({
-            url: event.update_url,
-            data: event_data,
-            type: 'PATCH'
-        });
-      },
-      
-      eventClick: function(event, jsEvent, view) {
-        $.getScript(event.edit_url, function() {});
-      }
+      events: calendar.data('path'),
+      timeFormat: 'H:mm'
     });
   })
 };

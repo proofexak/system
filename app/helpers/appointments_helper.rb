@@ -8,5 +8,16 @@ module AppointmentsHelper
 		end
 	end
 
+	def go_back(user, status)
+		if user.customer?
+			customer_calendar_path(user.customer)
+		elsif user.employee?
+			employee_calendar_path(user.employee)
+		elsif user.secretary?
+			secretary_calendar_path(user.secretary, status)
+		elsif user.admin?
+			admin_user_user_list_path(user)		
+		end
+	end
 
 end

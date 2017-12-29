@@ -10,22 +10,23 @@
           <th>Date</th>
           <th>Time</th>
           <th>Customer</th>
+          <th>Confirmed</th>
         </tr>
       </thead>
 
       <tbody>
           <% @appointments.order(:appointment_date).each do |appointment| %>
-            <% if appointment.employee_id == @employee.id && appointment.confirmation%>
               <tr>
                 <td><%= appointment.purpose %></td>
                 <td><%= appointment.appointment_date %></td>
                 <td><%= appointment.appointment_time %></td>
                 <td><%= appointment.customer.first_name %>  <%= appointment.customer.last_name %></td>
+                <td><%= appointment.confirmation ? 'Yes' : 'No' %></td>
               </tr>
-            <% end %>
           <% end %>
       </tbody>
     </table>
+    <%= link_to 'Calendar', employee_calendar_path(@employee), class: "btn btn-primary" %>
   </div>
   <div class="panel-footer">
     <%= link_to "Main page", root_path %>

@@ -52,7 +52,16 @@ class EmployeesController < ApplicationController
 
   def appointments
     @employee = @user.employee
-    @appointments = Appointment.all.includes(:customer)
+    @appointments = Appointment.all.includes(:customer).where(employee_id: @employee.id)
+  end
+
+  def calendar
+    @employee = @user.employee
+    @appointments = Appointment.where(employee_id: @employee.id)
+    @merged_date = {"id" => "date"}
+    @appointments.each do |appointment|
+      @merged_date[appointment.id] = "#{appointment.appointment_date}T#{appointment.appointment_time}:00"
+    end
   end
 
 

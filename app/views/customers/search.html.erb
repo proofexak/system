@@ -19,7 +19,7 @@
             <td><%= first_name?(employee)%></td>
             <td><%= last_name?(employee)%></td>
             <td><%= employee.position %></td>
-            <td><%= link_to "Show working hours", customer_show_employee_path(@customer,form: employee.id), class: "btn btn-primary" %></td>
+            <td><%= link_to "Show working hours", customer_employee_path(employee), class: "btn btn-primary" %></td>
             <td><%= link_to "Make appointment", appointments_new_date_path(employee: employee.id), class: "btn btn-primary" %></td>
           </tr>
         <% end %>
@@ -27,7 +27,7 @@
     </table>
   </div>
   <div class="panel-footer">
-    <%= link_to "Main page", root_path %>
+    <%= link_to "Main page", root_path %>||<%= link_to 'Back', customers_path %>
   </div>
 </div>
 </main>

@@ -27,8 +27,8 @@ class AppointmentsController < ApplicationController
     @employee = Employee.find(params[:employee_id])
     @customer = @user.customer
     @appointment = @user.appointments.build(appointment_date_params)
-    if(@appointment.appointment_date < Date.today)
-      redirect_to appointments_new_date_path(employee: @employee.id), notice: "Wrong date"
+    if @appointment.appointment_date.nil? || @appointment.appointment_date.sunday? || @appointment.appointment_date.saturday? || @appointment.appointment_date < Date.today 
+      redirect_to appointments_new_date_path(employee: @employee.id), alert: "Wrong date" and return
     end
     set_hours(@appointment, @employee)
   end
@@ -86,7 +86,7 @@ class AppointmentsController < ApplicationController
     @customer = Customer.find(@appointment.customer_id)
     @appointment.confirmation = true
     if @appointment.save
-      UserMailer.accepted_appointment(@customer).deliver_later
+      UserMailer.accepted_appointment(@customer).deliver
       redirect_to secretary_appointments_path(@secretary)
     else
       render :appointments

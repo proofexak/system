@@ -17,7 +17,7 @@
       </thead>
 
       <tbody>
-          <% @appointments.order(:appointment_date).each do |appointment| %>
+          <% @appointments.order(:appointment_date, :appointment_time, :purpose).each do |appointment| %>
             <tr>
               <td><%= appointment.purpose %></td>
               <td><%= appointment.extra %></td>
@@ -38,6 +38,7 @@
       </tbody>
     </table>
     <%= link_to 'New appointment', customer_search_path(@customer), class: "btn btn-primary" %>
+    <%= link_to 'Calendar', customer_calendar_path(@customer), class: "btn btn-primary" %>
   </div>
   <div class="panel-footer">
     <%= link_to "Main page", root_path %>

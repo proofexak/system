@@ -16,20 +16,19 @@
       </thead>
 
       <tbody>
-          <% @appointments.order(:appointment_date).each do |appointment| %>
-            <% if appointment.confirmation == wait_or_confirmed?(@status) %>
-              <tr>
-                <td><%= appointment.purpose %></td>
-                <td><%= appointment.appointment_date %></td>
-                <td><%= appointment.appointment_time %></td>
-                <td><%= appointment.employee.first_name %>  <%= appointment.employee.last_name %></td>
-                <td><%= appointment.customer.first_name %>  <%= appointment.customer.last_name %></td>
-                <td><%= link_to 'Show', appointment_path(appointment, status: @status), class: "btn btn-primary" %></td>
-              </tr>
-            <% end %>
+          <% @appointments.order(:appointment_date, :appointment_time, :purpose).each do |appointment| %>
+            <tr>
+              <td><%= appointment.purpose %></td>
+              <td><%= appointment.appointment_date %></td>
+              <td><%= appointment.appointment_time %></td>
+              <td><%= appointment.employee.first_name %>  <%= appointment.employee.last_name %></td>
+              <td><%= appointment.customer.first_name %>  <%= appointment.customer.last_name %></td>
+              <td><%= link_to 'Show', appointment_path(appointment, status: @status), class: "btn btn-primary" %></td>
+            </tr>
           <% end %>
       </tbody>
     </table>
+    <%= link_to 'Calendar', secretary_calendar_path(@secretary, status: @status), class: "btn btn-primary" %>
   </div>
   <div class="panel-footer">
     <%= link_to "Main page", root_path %>
