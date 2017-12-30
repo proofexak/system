@@ -70,11 +70,14 @@ class AppointmentsController < ApplicationController
 
 
   def destroy
+    @status = params[:status]
     @appointment = Appointment.find(params[:id])
+    @customer = Customer.find(@appointment.customer_id)
     @secretary = @user.secretary
     @appointment.destroy
     if @user.secretary?
-      redirect_to secretary_appointments_path(@secretary, status: params[:status])
+      UserMailer.declined_appointment(@customer, @appointment).deliver_now
+      redirect_to secretary_appointments_path(@secretary, status: @status)
     elsif @user.customer?
       redirect_to appointments_path
     end
@@ -82,12 +85,14 @@ class AppointmentsController < ApplicationController
 
   def accept
     @secretary = @user.secretary
+    @status = params[:status]
     @appointment = Appointment.find(params[:appointment_id])
     @customer = Customer.find(@appointment.customer_id)
     @appointment.confirmation = true
     if @appointment.save
-      UserMailer.accepted_appointment(@customer).deliver
-      redirect_to secretary_appointments_path(@secretary)
+      UserMailer.accepted_appointment(@customer, @appointment).deliver_now
+      appointments_with_same_date(@appointment)
+      redirect_to secretary_appointments_path(@secretary, status: @status)
     else
       render :appointments
     end
@@ -101,6 +106,20 @@ class AppointmentsController < ApplicationController
 
     def set_user
       @user = current_user
+    end
+
+    def appointments_with_same_date(appointment)
+      @appointments = Appointment.where(appointment_date: appointment.appointment_date)
+                                  .where(appointment_time: appointment.appointment_time)
+                                  .where(employee_id: appointment.employee_id)
+                                  .where(confirmation: false)
+      unless @appointments.empty?
+        @appointments.each do |appointment|
+          appointment.destroy
+          @customer = Customer.find(appointment.customer_id)
+          UserMailer.declined_appointment(@customer, appointment).deliver_now
+        end
+      end     
     end
 
     def set_hours(appointment, employee)

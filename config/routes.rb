@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :secretaries do
     get 'appointments'
     get 'calendar'
+    get 'expired_date'
   end
   resources :appointments do
     get 'accept'

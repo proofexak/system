@@ -68,6 +68,22 @@ class SecretariesController < ApplicationController
     end
   end
 
+  def expired_date
+    @appointments = Appointment.all
+    @deleted = false
+    unless @appointments.empty?
+      @appointments.each do |appointment|
+        if appointment.appointment_date < Date.today
+          appointment.destroy
+          @customer = Customer.find(appointment.customer_id)
+          UserMailer.declined_appointment(@customer, appointment).deliver_now
+          @deleted = true
+        end
+      end
+    end
+    redirect_to root_path, notice: @deleted ? "All expired appointments has beed deleted" : "There was no expired appointments"
+  end
+
   private
     def set_secretary
 

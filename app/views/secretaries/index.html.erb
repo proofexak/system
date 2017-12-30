@@ -3,6 +3,7 @@
     <%= link_to 'Edit profile', edit_secretary_path(@secretary), class: "btn btn-primary" %>
     <%= link_to 'Waiting appointments', secretary_appointments_path(@secretary, status: "Waiting"), class: "btn btn-primary" %>
     <%= link_to 'Confirmed appointments', secretary_appointments_path(@secretary, status: "Confirmed"), class: "btn btn-primary" %>
+    <%= link_to 'Expired appointments', secretary_expired_date_path(@secretary), class: "btn btn-primary" %>
   <% elsif @user.secretary? %>
     <%= link_to 'Finish profile', new_secretary_path, class: "btn btn-primary" %>
   <% end %>
