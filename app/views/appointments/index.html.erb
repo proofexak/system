@@ -23,7 +23,7 @@
               <td><%= appointment.extra %></td>
               <td><%= appointment.appointment_date %></td>
               <td><%= appointment.appointment_time %></td>
-              <td><%= appointment.employee.first_name %>  <%= appointment.employee.last_name %></td>
+              <td><%= @employee_name[appointment.id] %></td>
               <td>
                 <%if appointment.confirmation%>
                   Yes
@@ -31,8 +31,9 @@
                   No
                 <%end%>
               </td>
-              <td><%= link_to 'Edit',edit_employee_appointment_path(appointment.employee_id, appointment), class: "btn btn-primary" %></td>
-              <td><%= link_to "Destroy", appointment_path(appointment), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-primary" %></td>
+              <td><%= link_to 'Edit', edit_employee_appointment_path(appointment.employee_id, appointment), class: "btn btn-primary" %></td>
+              <td><%= link_to 'Show', appointment_path(appointment.id), class: "btn btn-primary" %></td>
+              <td><%= link_to "Cancel", appointment_path(appointment), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-primary" %></td>
             </tr>
           <% end %>
       </tbody>

@@ -4,11 +4,6 @@ class CustomersController < ApplicationController
 
   def index
     @customer = @user.customer
-    @appointments = Appointment.where(customer_id: @customer.id)
-    @merged_date = {"id" => "date"}
-    @appointments.each do |appointment|
-      @merged_date[appointment.id] = "#{appointment.appointment_date}T#{appointment.appointment_time}:00"
-    end
   end
 
   def show
@@ -87,7 +82,10 @@ class CustomersController < ApplicationController
     end
 
     def customer_params
-      params.require(:customer).permit(:first_name, :last_name, :telephone_number, 
-        :city, :pesel)
+      params.require(:customer).permit(:telephone_number, :city, :pesel)
+    end
+
+    def user_params
+      params.require(:user).permit(:first_name, :last_name)
     end
 end

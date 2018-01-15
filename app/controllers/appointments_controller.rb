@@ -4,7 +4,12 @@ class AppointmentsController < ApplicationController
   
   def index
    @customer = @user.customer
-   @appointments = @user.appointments.includes(:employee)
+   @appointments = @user.appointments
+   @employee_name = {"appid" => "fullname"}
+   @appointments.each do |appointment|
+      @employee = User.find(Employee.find(appointment.employee_id).user_id)
+      @employee_name[appointment.id] = "#{@employee.first_name} #{@employee.last_name}"
+    end
   end
 
 
@@ -14,6 +19,8 @@ class AppointmentsController < ApplicationController
     @customer = Customer.find(@appointment.customer_id)
     @employee = Employee.find(@appointment.employee_id)
     @status = params[:status]
+    @customer_user = User.find(@customer.user_id)
+    @employee_user = User.find(@employee.user_id)
   end
 
   def new_date
@@ -92,9 +99,9 @@ class AppointmentsController < ApplicationController
     if @appointment.save
       UserMailer.accepted_appointment(@customer, @appointment).deliver_now
       appointments_with_same_date(@appointment)
-      redirect_to secretary_appointments_path(@secretary, status: @status)
+      redirect_to secretary_appointments_path(@secretary, status: @status), notice: "Appointment confirmed"
     else
-      render :appointments
+      redirect_to secretary_appointments_path(@secretary, status: @status), notice: "Error occured"
     end
   end
 

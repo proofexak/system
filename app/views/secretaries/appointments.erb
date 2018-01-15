@@ -21,8 +21,8 @@
               <td><%= appointment.purpose %></td>
               <td><%= appointment.appointment_date %></td>
               <td><%= appointment.appointment_time %></td>
-              <td><%= appointment.employee.first_name %>  <%= appointment.employee.last_name %></td>
-              <td><%= appointment.customer.first_name %>  <%= appointment.customer.last_name %></td>
+              <td><%= @employee_name[appointment.id] %></td>
+              <td><%= @customer_name[appointment.id]%></td>
               <td><%= link_to 'Show', appointment_path(appointment, status: @status), class: "btn btn-primary" %></td>
             </tr>
           <% end %>

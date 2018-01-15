@@ -17,30 +17,6 @@ module HomeHelper
 		end
 	end
 
-	def whos_name_to_show?(user)
-		if user.employee?
-			first_name?(user.employee)
-		elsif user.secretary?
-			first_name?(user.secretary)
-		elsif user.customer?
-			first_name?(user.customer)
-		else
-			"nieznane"
-		end		
-	end
-
-	def whos_last_name_to_show?(user)
-		if user.employee?
-			last_name?(user.employee)
-		elsif user.secretary?
-			last_name?(user.secretary)
-		elsif user.customer?
-			last_name?(user.customer)
-		else
-			"nieznane"
-		end		
-	end
-
 	def who_to_show?(user)
 		if user.customer?
 			unless user.customer.nil?

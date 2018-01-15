@@ -16,8 +16,8 @@
       <tbody>
         <% @employee.order(:position).each do |employee| %>
           <tr>
-            <td><%= first_name?(employee)%></td>
-            <td><%= last_name?(employee)%></td>
+            <td><%= employee_first_name(employee)%></td>
+            <td><%= employee_last_name(employee)%></td>
             <td><%= employee.position %></td>
             <td><%= link_to "Show working hours", customer_employee_path(employee), class: "btn btn-primary" %></td>
             <td><%= link_to "Make appointment", appointments_new_date_path(employee: employee.id), class: "btn btn-primary" %></td>

@@ -6,7 +6,7 @@ module Admin
 
 		def destroy
 	    	@user = User.find(params[:id])
-	    	if current_user.try(:type) == "admin"
+	    	if current_user.admin? "admin"
 	      		@user.destroy
 	      		redirect_to admin_user_user_list_path(@user)
 	    	end
@@ -14,7 +14,7 @@ module Admin
 
 		def change_user_type
     		@user = User.find(params[:user_id])
-    		if current_user.try(:type) == "admin"
+    		if current_user.admin?
       			@user.type = params[:form]
     		end
     		if @user.save

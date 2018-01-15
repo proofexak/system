@@ -24,6 +24,7 @@
         <% end %>
       </tbody>
     </table>
+    <%= link_to "Make appointment", appointments_new_date_path(employee: @employee.id), class: "btn btn-primary" %>
     <div class="calendar" data-path="<%= customer_employee_path(@employee, format: :json) %>"></div>
   </div>
   <div class="panel-footer">

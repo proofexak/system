@@ -17,8 +17,8 @@
       <tbody>
         <% @users.order(:type ,:email).each do |user| %>
           <tr>
-            <td><%= whos_name_to_show?(user) %></td>
-            <td><%= whos_last_name_to_show?(user) %></td>
+            <td><%= user.first_name %></td>
+            <td><%= user.last_name %></td>
             <td><%= user.email %></td>
             <td><%= user.type.capitalize %></td>
             <td><%= link_to "Show", who_to_show?(user), class: "btn btn-primary" %></td>

@@ -55,7 +55,15 @@ class SecretariesController < ApplicationController
   def appointments
     @status = params[:status]
     @secretary = current_user.secretary
-    @appointments = Appointment.includes(:employee, :customer).where(confirmation: view_context.wait_or_confirmed?(@status))
+    @appointments = Appointment.where(confirmation: view_context.wait_or_confirmed?(@status))
+    @employee_name = {"appid" => "fullname"}
+    @customer_name = {"appid" => "fullname"}
+    @appointments.each do |appointment|
+      @employee = User.find(Employee.find(appointment.employee_id).user_id)
+      @customer = User.find(Customer.find(appointment.customer_id).user_id)
+      @employee_name[appointment.id] = "#{@employee.first_name} #{@employee.last_name}"
+      @customer_name[appointment.id] = "#{@customer.first_name} #{@customer.last_name}"
+    end
   end
 
   def calendar

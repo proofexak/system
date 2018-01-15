@@ -10,7 +10,7 @@ module AppointmentsHelper
 
 	def go_back(user, status)
 		if user.customer?
-			customer_calendar_path(user.customer)
+			appointments_path
 		elsif user.employee?
 			employee_calendar_path(user.employee)
 		elsif user.secretary?
